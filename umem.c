@@ -2329,8 +2329,11 @@ umem_process_updates(void)
 		int notify = 0;
 		umem_cache_t *cp = umem_null_cache.cache_unext;
 
-		cp->cache_uprev->cache_unext = cp->cache_unext;
-		cp->cache_unext->cache_uprev = cp->cache_uprev;
+		if (cp->cache_uprev)
+			cp->cache_uprev->cache_unext = cp->cache_unext;
+		if (cp->cache_unext)
+			cp->cache_unext->cache_uprev = cp->cache_uprev;
+
 		cp->cache_uprev = cp->cache_unext = NULL;
 
 		ASSERT(!(cp->cache_uflags & UMU_ACTIVE));
