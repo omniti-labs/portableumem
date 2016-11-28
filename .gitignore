@@ -1,8 +1,11 @@
+*.o
 *.lo
 *.la
 .deps
 .libs
 *.loT
+*.log
+*.trs
 Makefile
 Makefile.in
 aclocal.m4
@@ -23,3 +26,12 @@ Doxyfile
 umem.spec
 *.tar.gz
 *.tar.bz2
+INSTALL
+compile
+config.guess
+config.sub
+depcomp
+install-sh
+ltmain.sh
+missing
+test-driver
