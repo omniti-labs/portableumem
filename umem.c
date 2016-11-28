@@ -1071,6 +1071,8 @@ umem_log_init(size_t logsize)
 	size_t lhsize = offsetof(umem_log_header_t, lh_cpu[umem_max_ncpus]);
 	int i;
 
+	ASSERT(nchunks > 0);
+
 	if (logsize == 0)
 		return (NULL);
 
@@ -3186,6 +3188,7 @@ umem_init(void)
 	}
 
 	umem_max_ncpus = umem_get_max_ncpus();
+	ASSERT(umem_max_ncpus > 0);
 
 	/*
 	 * load tunables from environment
