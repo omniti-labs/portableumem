@@ -29,6 +29,6 @@ AC_CHECK_HEADERS([sys/mman.h sys/sysmacros.h sys/time.h malloc.h])
 AC_CHECK_FUNCS([issetugid mallinfo malloc_stats])
 
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile Doxyfile umem.spec])
+AC_CONFIG_FILES([Makefile Doxyfile umem.pc umem-malloc.pc umem.spec])
 
 AC_OUTPUT
