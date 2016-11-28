@@ -1,7 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "umem.h"
+#ifndef UMEM_STANDALONE
+#  include "umem.h"
+#else
+#  include "umem_impl.h"
+#endif
 
 static const char *TESTSTRINGS[] = {
   "fred",
@@ -21,8 +25,10 @@ main (int argc, char *argv[])
   int i, j;
 
   memset(testcases, 0, sizeof(testcases));
-  
+
+#ifdef UMEM_STANDALONE
   umem_startup(NULL, 0, 0, NULL, NULL);
+#endif
 
   for (i = 0; i < N_TESTSTRINGS; ++i)
   {
