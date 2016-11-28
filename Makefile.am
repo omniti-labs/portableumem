@@ -1,17 +1,16 @@
 lib_LTLIBRARIES = libumem.la libumem_malloc.la
 noinst_PROGRAMS = umem_test umem_test2 umem_test3
 
-libumem_la_LDFLAGS = -lpthread
-
 umem_test_SOURCES = umem_test.c
-umem_test_LDADD = -lumem
+umem_test_LDADD = libumem.la
 
 umem_test2_SOURCES = umem_test2.c
-umem_test2_LDADD = -lumem
+umem_test2_LDADD = libumem.la
 
 umem_test3_SOURCES = umem_test3.c
-umem_test3_LDADD = -lumem -lumem_malloc
+umem_test3_LDADD = libumem_malloc.la
 
+libumem_la_LIBADD = -lpthread
 libumem_la_SOURCES =	init_lib.c \
 			umem_agent_support.c \
 			umem_fail.c \
@@ -36,7 +35,7 @@ libumem_la_SOURCES =	init_lib.c \
 			sys/vmem_impl_user.h
 
 libumem_malloc_la_SOURCES = malloc.c
-libumem_malloc_la_LDFLAGS = -lpthread -lumem
+libumem_malloc_la_LIBADD = libumem.la
 
 pkgconfigdir = $(libdir)/pkgconfig
 dist_pkgconfig_DATA = umem.pc umem-malloc.pc
