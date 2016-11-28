@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: umem-malloc
+Version: @PACKAGE_VERSION@
+Description: Port of Solaris's slab allocator. Libc malloc replacement.
+URL: https://labs.omniti.com/trac/portableumem/
+Requires.private: umem = @PACKAGE_VERSION@
+Libs: -L${libdir} -lumem_malloc
+Cflags: -I${includedir}

@@ -431,5 +431,3 @@ realloc(void *buf_arg, size_t newsize)
 	free(buf_arg);
 	return (buf);
 }
-
-

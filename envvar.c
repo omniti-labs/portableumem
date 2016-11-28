@@ -506,21 +506,17 @@ fail:
 static int
 process_item(const umem_env_item_t *item, const char *item_arg)
 {
-	int arg_required = 0;
+	int arg_required;
 	arg_process_t *processor;
 
 	switch (item->item_type) {
-	case ITEM_FLAG:
-	case ITEM_CLEARFLAG:
-	case ITEM_OPTUINT:
-	case ITEM_OPTSIZE:
-	case ITEM_SPECIAL:
-		arg_required = 0;
-		break;
-
 	case ITEM_UINT:
 	case ITEM_SIZE:
 		arg_required = 1;
+		break;
+
+	default:
+		arg_required = 0;
 		break;
 	}
 
@@ -549,7 +545,7 @@ process_item(const umem_env_item_t *item, const char *item_arg)
 		processor = item->item_special;
 		break;
 
-	default:
+	case ITEM_INVALID:
 		log_message("%s: %s: Invalid type.  Ignored\n",
 		    CURRENT, item->item_name);
 		return (1);

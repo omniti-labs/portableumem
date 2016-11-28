@@ -2,13 +2,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "umem.h"
+#ifndef UMEM_STANDALONE
+#  include "umem.h"
+#else
+#  include "umem_impl.h"
+#endif
 
 int main(int argc, char *argv[])
 {
   char *foo;
-  
+
+#ifdef UMEM_STANDALONE
   umem_startup(NULL, 0, 0, NULL, NULL);
+#endif
 
   foo = umem_alloc(32, UMEM_DEFAULT);
 
@@ -20,4 +26,3 @@ int main(int argc, char *argv[])
 
   return EXIT_SUCCESS;
 }
-

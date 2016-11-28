@@ -216,7 +216,7 @@ static INLINE uint64_t umem_atomic_inc64(uint64_t *val)
 
 /* beware! umem only uses these atomic adds for incrementing by 1 */
 #define atomic_add_64(lvalptr, delta) umem_atomic_inc64(lvalptr)
-#define atomic_add_32_nv(a, b)  	  umem_atomic_inc(a) 
+#define atomic_add_32_nv(a, b)  	  umem_atomic_inc(a)
 
 #ifndef NANOSEC
 #define NANOSEC 1000000000

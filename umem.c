@@ -914,7 +914,9 @@ umem_error(int error, umem_cache_t *cparg, void *bufarg)
 			(void) mutex_unlock(&cp->cache_lock);
 			if (bcp == NULL && btp != NULL)
 				bcp = btp->bt_bufctl;
-			if (umem_findslab(cp->cache_bufctl_cache, bcp) ==
+			if (bcp == NULL)
+				error = UMERR_BADBUFCTL;
+			else if (umem_findslab(cp->cache_bufctl_cache, bcp) ==
 			    NULL || P2PHASE((uintptr_t)bcp, UMEM_ALIGN) ||
 			    bcp->bc_addr != buf) {
 				error = UMERR_BADBUFCTL;
@@ -1070,6 +1072,8 @@ umem_log_init(size_t logsize)
 	int nchunks = 4 * umem_max_ncpus;
 	size_t lhsize = offsetof(umem_log_header_t, lh_cpu[umem_max_ncpus]);
 	int i;
+
+	ASSERT(nchunks > 0);
 
 	if (logsize == 0)
 		return (NULL);
@@ -2329,8 +2333,11 @@ umem_process_updates(void)
 		int notify = 0;
 		umem_cache_t *cp = umem_null_cache.cache_unext;
 
-		cp->cache_uprev->cache_unext = cp->cache_unext;
-		cp->cache_unext->cache_uprev = cp->cache_uprev;
+		if (cp->cache_uprev)
+			cp->cache_uprev->cache_unext = cp->cache_unext;
+		if (cp->cache_unext)
+			cp->cache_unext->cache_uprev = cp->cache_uprev;
+
 		cp->cache_uprev = cp->cache_unext = NULL;
 
 		ASSERT(!(cp->cache_uflags & UMU_ACTIVE));
@@ -3031,7 +3038,7 @@ umem_cache_init(void)
  */
 void
 umem_startup(caddr_t start, size_t len, size_t pagesize, caddr_t minstack,
-	caddr_t maxstack) 
+	caddr_t maxstack)
 {
 #ifdef UMEM_STANDALONE
 	int idx;
@@ -3183,6 +3190,7 @@ umem_init(void)
 	}
 
 	umem_max_ncpus = umem_get_max_ncpus();
+	ASSERT(umem_max_ncpus > 0);
 
 	/*
 	 * load tunables from environment
@@ -3336,4 +3344,3 @@ __umem_init (void)
 	umem_startup(NULL, 0, 0, NULL, NULL);
 }
 #endif
-
