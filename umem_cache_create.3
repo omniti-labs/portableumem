@@ -2,7 +2,7 @@
 .\" CDDL HEADER START
 .\"
 .\" The contents of this file are subject to the terms of the
-.\" Common Development and Distribution License (the "License").  
+.\" Common Development and Distribution License (the "License").
 .\" You may not use this file except in compliance with the License.
 .\"
 .\" You can obtain a copy of the license at usr/src/OPENSOLARIS.LICENSE
@@ -24,7 +24,7 @@ umem_cache_create, umem_cache_destroy, umem_cache_alloc, umem_cache_free \- allo
 .SH SYNOPSIS
 .LP
 .nf
-cc [ \fIflag \&.\|.\|.\fR ] \fIfile\fR\&.\|.\|. \fB-lumem\fR [ \fIlibrary \&.\|.\|.\fR ] 
+cc [ \fIflag \&.\|.\|.\fR ] \fIfile\fR\&.\|.\|. \fB-lumem\fR [ \fIlibrary \&.\|.\|.\fR ]
 #include <umem.h>
 
 \fBumem_cache_t *\fR\fBumem_cache_create\fR(\fBchar *\fR\fIdebug_name\fR, \fBsize_t\fR \fIbufsize\fR,
@@ -49,7 +49,7 @@ cc [ \fIflag \&.\|.\|.\fR ] \fIfile\fR\&.\|.\|. \fB-lumem\fR [ \fIlibrary \&.\|.
 
 .LP
 These functions create, destroy, and use an "object cache".  An object cache is a collection of buffers of a single size, with optional content caching enabled by the use of callbacks (see \fBCache Callbacks\fR).  Object caches are MT-Safe. Multiple allocations and freeing of
-memory from different threads can proceed simultaneously.  Object caches are faster and use less space per buffer than 
+memory from different threads can proceed simultaneously.  Object caches are faster and use less space per buffer than
 \fBmalloc\fR(3MALLOC) and
 \fBumem_alloc\fR(3MALLOC).  For more information about object caching, see "The Slab Allocator: An Object-Caching Kernel Memory Allocator" and "Magazines
 and vmem: Extending the Slab Allocator to Many CPUs and Arbitrary Resources".
@@ -73,7 +73,7 @@ The \fBumem_cache_create()\fR function creates a cache of objects and takes as a
 \fB\fIdebug_name\fR\fR
 .ad
 .RS 15n
-.rt  
+.rt
 A human-readable name for debugging purposes.
 .sp
 
@@ -86,7 +86,7 @@ A human-readable name for debugging purposes.
 \fB\fIbufsize\fR\fR
 .ad
 .RS 15n
-.rt  
+.rt
 The size, in bytes, of the buffers in this cache.
 .sp
 
@@ -99,7 +99,7 @@ The size, in bytes, of the buffers in this cache.
 \fB\fIalign\fR\fR
 .ad
 .RS 15n
-.rt  
+.rt
 The minimum alignment required for buffers in this cache. This parameter must be a power of 2. If 0, it is replaced with the minimum required alignment for the current architecture.
 .sp
 
@@ -112,7 +112,7 @@ The minimum alignment required for buffers in this cache. This parameter must be
 \fB\fIconstructor\fR\fR
 .ad
 .RS 15n
-.rt  
+.rt
 The callback to construct an object.
 .sp
 
@@ -125,7 +125,7 @@ The callback to construct an object.
 \fB\fIdestructor\fR\fR
 .ad
 .RS 15n
-.rt  
+.rt
 The callback to destroy an object.
 .sp
 
@@ -138,7 +138,7 @@ The callback to destroy an object.
 \fB\fIreclaim\fR\fR
 .ad
 .RS 15n
-.rt  
+.rt
 The callback to reclaim objects.
 .sp
 
@@ -151,7 +151,7 @@ The callback to reclaim objects.
 \fB\fIcallback_data\fR\fR
 .ad
 .RS 15n
-.rt  
+.rt
 An opaque pointer passed to the callbacks.
 .sp
 
@@ -164,7 +164,7 @@ An opaque pointer passed to the callbacks.
 \fB\fIsource\fR\fR
 .ad
 .RS 15n
-.rt  
+.rt
 This parameter must be \fINULL\fR.
 .sp
 
@@ -177,8 +177,8 @@ This parameter must be \fINULL\fR.
 \fB\fIcflags\fR\fR
 .ad
 .RS 15n
-.rt  
-This parameter must be either 0 or \fBUMC_NODEBUG\fR. If \fBUMC_NODEBUG\fR, all debugging features are disabled for this cache. See 
+.rt
+This parameter must be either 0 or \fBUMC_NODEBUG\fR. If \fBUMC_NODEBUG\fR, all debugging features are disabled for this cache. See
 \fBumem_debug\fR(3MALLOC).
 .sp
 
@@ -213,7 +213,7 @@ state.
 
 .LP
 The destructor callback takes as an argument a constructed object and prepares it for return to the general pool of memory.  The destructor should undo any state that the constructor created.  For debugging, the destructor can also check that the buffer is in the constructed state, to catch
-incorrectly freed buffers.  See 
+incorrectly freed buffers.  See
 \fBumem_debug\fR(3MALLOC) for further information on debugging support.
 .sp
 
@@ -234,7 +234,7 @@ The \fBumem_cache_alloc()\fR function takes as arguments:
 \fB\fIcache\fR\fR
 .ad
 .RS 7n
-.rt  
+.rt
 a cache pointer
 .sp
 
@@ -247,7 +247,7 @@ a cache pointer
 \fB\fIflags\fR\fR
 .ad
 .RS 7n
-.rt  
+.rt
 flags that determine the behavior if \fBumem_cache_alloc()\fR is unable to fulfill the allocation request
 .sp
 
@@ -296,7 +296,7 @@ The allocation of a new buffer failed. The \fIflags\fR argument determines the b
 \fB\fBUMEM_DEFAULT\fR\fR
 .ad
 .RS 14n
-.rt  
+.rt
 The \fBumem_cache_alloc()\fR function returns \fINULL\fR if the allocation fails.
 .sp
 
@@ -309,8 +309,8 @@ The \fBumem_cache_alloc()\fR function returns \fINULL\fR if the allocation fails
 \fB\fBUMEM_NOFAIL\fR\fR
 .ad
 .RS 14n
-.rt  
-The \fBumem_cache_alloc()\fR function cannot return \fINULL\fR. A callback is used to determine what action occurs. See 
+.rt
+The \fBumem_cache_alloc()\fR function cannot return \fINULL\fR. A callback is used to determine what action occurs. See
 \fBumem_alloc\fR(3MALLOC) for more information.
 .sp
 
@@ -331,7 +331,7 @@ The \fBumem_cache_free()\fR function takes as arguments:
 \fB\fIcache\fR\fR
 .ad
 .RS 7n
-.rt  
+.rt
 a cache pointer
 .sp
 
@@ -344,7 +344,7 @@ a cache pointer
 \fB\fIbuf\fR\fR
 .ad
 .RS 7n
-.rt  
+.rt
 a pointer previously returned from \fBumem_cache_alloc()\fR. This argument must not be \fINULL\fR.
 .sp
 
@@ -384,7 +384,7 @@ The \fBumem_cache_create()\fR function will fail if:
 \fB\fBEAGAIN\fR\fR
 .ad
 .RS 8n
-.rt  
+.rt
 There is not enough memory available to allocate the cache data structure.
 .sp
 
@@ -397,7 +397,7 @@ There is not enough memory available to allocate the cache data structure.
 \fB\fBEINVAL\fR\fR
 .ad
 .RS 8n
-.rt  
+.rt
 The \fIdebug_name\fR argument is \fINULL\fR, the \fIalign\fR argument is not a power of two or is larger than the system pagesize, or the \fIbufsize\fR argument is 0.
 .sp
 
@@ -410,7 +410,7 @@ The \fIdebug_name\fR argument is \fINULL\fR, the \fIalign\fR argument is not a p
 \fB\fBENOMEM\fR\fR
 .ad
 .RS 8n
-.rt  
+.rt
 The \fBlibumem\fR library could not be initialized, or the \fIbufsize\fR argument is too large and its use would cause integer overflow to occur.
 .sp
 
@@ -610,18 +610,18 @@ umem_cache_t *my_obj_4k_cache;
 umem_cache_t *my_obj_8k_cache;
 \&...
 my_obj_cache_4k = umem_cache_create("my_obj_4k", sizeof (my_obj_t),
-        0, my_obj_constructor, my_obj_destructor, NULL, 
+        0, my_obj_constructor, my_obj_destructor, NULL,
         (void *)4096, NULL, 0);
 
 my_obj_cache_8k = umem_cache_create("my_obj_8k", sizeof (my_obj_t),
-        0, my_obj_constructor, my_obj_destructor, NULL, 
+        0, my_obj_constructor, my_obj_destructor, NULL,
         (void *)8192, NULL, 0);
 \&...
 my_obj_t *my_obj_4k = umem_cache_alloc(my_obj_4k_cache,
         UMEM_DEFAULT);
 my_obj_t *my_obj_8k = umem_cache_alloc(my_obj_8k_cache,
         UMEM_DEFAULT);
-/* no assumptions should be made about the contents 
+/* no assumptions should be made about the contents
 of the buffers */
 \&...
 /* make sure to return them to the correct cache */
@@ -632,14 +632,14 @@ umem_cache_free(my_obj_8k_cache, my_obj_8k);
 .in -2
 
 .LP
-See the \fBEXAMPLES\fR section of 
+See the \fBEXAMPLES\fR section of
 \fBumem_alloc\fR(3MALLOC) for examples involving the \fBUMEM_NOFAIL\fR flag.
 .sp
 
 .SH ATTRIBUTES
 
 .LP
-See 
+See
 \fBattributes\fR(5) for descriptions of the following attributes:
 .sp
 
@@ -648,8 +648,8 @@ See
 .sp
 .TS
 tab() box;
-cw(2.75i) |cw(2.75i) 
-lw(2.75i) |lw(2.75i) 
+cw(2.75i) |cw(2.75i)
+lw(2.75i) |lw(2.75i)
 .
 ATTRIBUTE TYPEATTRIBUTE VALUE
 _
@@ -662,14 +662,14 @@ MT-LevelMT-Safe
 
 .LP
 
-\fBsetcontext\fR(2), 
-\fBatexit\fR(3C), 
-\fBlibumem\fR(3LIB), 
-\fBlongjmp\fR(3C), 
-\fBswapcontext\fR(3C), 
-\fBthr_exit\fR(3C), 
-\fBumem_alloc\fR(3MALLOC), 
-\fBumem_debug\fR(3MALLOC), 
+\fBsetcontext\fR(2),
+\fBatexit\fR(3C),
+\fBlibumem\fR(3LIB),
+\fBlongjmp\fR(3C),
+\fBswapcontext\fR(3C),
+\fBthr_exit\fR(3C),
+\fBumem_alloc\fR(3MALLOC),
+\fBumem_debug\fR(3MALLOC),
 \fBattributes\fR(5)
 .sp
 
@@ -752,24 +752,24 @@ Reading from or writing to a buffer after it has been freed.
 .TP
 .ie t \(bu
 .el o
-Performing \fBUMEM_NOFAIL\fR allocations from an 
+Performing \fBUMEM_NOFAIL\fR allocations from an
 \fBatexit\fR(3C) handler.
 .sp
 
 .RE
 
 .LP
-Per-cache callbacks can be called from a variety of contexts. The use of functions that modify the active context, such as 
-\fBsetcontext\fR(2), 
-\fBswapcontext\fR(3C), and 
+Per-cache callbacks can be called from a variety of contexts. The use of functions that modify the active context, such as
+\fBsetcontext\fR(2),
+\fBswapcontext\fR(3C), and
 \fBthr_exit\fR(3C),
-or functions that are unsafe for use in multithreaded applications, such as 
-\fBlongjmp\fR(3C) and 
+or functions that are unsafe for use in multithreaded applications, such as
+\fBlongjmp\fR(3C) and
 \fBsiglongjmp\fR(3C), result in undefined behavior.
 .sp
 
 .LP
-A constructor callback that performs allocations must pass its \fIflags\fR argument unchanged to 
+A constructor callback that performs allocations must pass its \fIflags\fR argument unchanged to
 \fBumem_alloc\fR(3MALLOC) and \fBumem_cache_alloc()\fR. Any allocations made with a different flags argument results in undefined behavior.  The constructor must correctly handle the failure of any allocations it makes.
 .sp
 
@@ -812,4 +812,3 @@ If the cache has a destructor, it is applied to all objects before their underly
 .LP
 No other guarantees are made. In particular, even if there are buffers recently freed to the cache, \fBumem_cache_alloc()\fR can fail.
 .sp
-

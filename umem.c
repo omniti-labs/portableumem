@@ -3031,7 +3031,7 @@ umem_cache_init(void)
  */
 void
 umem_startup(caddr_t start, size_t len, size_t pagesize, caddr_t minstack,
-	caddr_t maxstack) 
+	caddr_t maxstack)
 {
 #ifdef UMEM_STANDALONE
 	int idx;
@@ -3336,4 +3336,3 @@ __umem_init (void)
 	umem_startup(NULL, 0, 0, NULL, NULL);
 }
 #endif
-
