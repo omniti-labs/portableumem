@@ -914,7 +914,9 @@ umem_error(int error, umem_cache_t *cparg, void *bufarg)
 			(void) mutex_unlock(&cp->cache_lock);
 			if (bcp == NULL && btp != NULL)
 				bcp = btp->bt_bufctl;
-			if (umem_findslab(cp->cache_bufctl_cache, bcp) ==
+			if (bcp == NULL)
+				error = UMERR_BADBUFCTL;
+			else if (umem_findslab(cp->cache_bufctl_cache, bcp) ==
 			    NULL || P2PHASE((uintptr_t)bcp, UMEM_ALIGN) ||
 			    bcp->bc_addr != buf) {
 				error = UMERR_BADBUFCTL;
