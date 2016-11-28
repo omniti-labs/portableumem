@@ -1,6 +1,8 @@
 AC_INIT([umem], [1.0.2], [], [umem])
 AM_INIT_AUTOMAKE([dist-bzip2])
 
+AC_USE_SYSTEM_EXTENSIONS
+
 AC_PROG_CC
 AM_PROG_AS
 AC_PROG_LIBTOOL
